@@ -1,0 +1,329 @@
+<title>Britannia RFID: Unified Flow (All Portals)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #ffffff; height: 100%; overflow: hidden; }
+  body { font-family: Arial, Helvetica, sans-serif; display: flex; flex-direction: column; }
+  /* Flex column + flex:1 on .viewport (instead of a hardcoded calc(100vh - Npx)) so the
+     header can wrap to two lines on a narrow phone screen without breaking the layout. */
+  .legend {
+    flex: 0 0 auto; background: #ffffff; border-bottom: 1px solid #ddd; padding: 10px 20px;
+    font-size: 13px; color: #333; z-index: 10; display: flex; align-items: center;
+    justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .legend b { color: #000; }
+  .legend .hint { color: #777; font-size: 12px; }
+  .controls { display: flex; align-items: center; gap: 6px; }
+  .controls button {
+    height: 30px; border: 1.5px solid #000; background: #fff; color: #000;
+    font-size: 16px; font-weight: 700; border-radius: 6px; cursor: pointer; line-height: 1; padding: 0 10px;
+  }
+  .controls button.square { width: 30px; padding: 0; }
+  .controls button:hover { background: #f0f0f0; }
+  .controls button:disabled { opacity: 0.45; cursor: default; }
+  .controls button:disabled:hover { background: #fff; }
+  .controls .pct { min-width: 48px; text-align: center; font-size: 12px; color: #333; font-variant-numeric: tabular-nums; }
+  .controls .sep { width: 1px; height: 22px; background: #ddd; margin: 0 4px; }
+  .save-btn { display: inline-flex; align-items: center; gap: 6px; }
+
+  @media (max-width: 640px) {
+    .legend { padding: 8px 12px; gap: 8px; }
+    .legend .hint { display: none; } /* the gesture hint doesn't fit a phone width; touch panning/pinch-zoom needs no instructions */
+    .legend b { font-size: 13px; }
+    .controls button { height: 34px; font-size: 15px; } /* slightly larger hit targets for touch */
+    .controls .pct { min-width: 38px; font-size: 11px; }
+    .save-btn span:not(.pct) { display: none; } /* icon-only Save button to save header width */
+  }
+
+  /* .viewport is the native-scrolling window: once zoom pushes .sizer bigger than the
+     viewport, real horizontal/vertical scrollbars appear automatically - no custom
+     scrollbar UI to keep in sync. Touch: native overflow already handles one-finger pan;
+     JS below adds two-finger pinch-to-zoom on top of it. */
+  .viewport {
+    position: relative; width: 100%; flex: 1 1 auto; overflow: auto;
+    background: #fafafa; cursor: grab; user-select: none; -webkit-overflow-scrolling: touch;
+  }
+  .viewport.grabbing { cursor: grabbing; }
+  .sizer { position: relative; } /* width/height set by JS = native canvas size * scale */
+  .canvas {
+    position: absolute; left: 0; top: 0; width: 4320px; height: 2415px;
+    background: #ffffff; box-shadow: 0 0 0 1px #e2e2e2; transform-origin: 0 0;
+  }
+  svg.connectors { position: absolute; left: 0; top: 0; width: 4320px; height: 2415px; z-index: 1; pointer-events: none; }
+  .node { position: absolute; }
+  .node.sectionbg { border: 1px dashed #000000; border-radius: 6px; z-index: 0; }
+  .node.title { display: flex; align-items: center; font-weight: 700; z-index: 2; }
+  .node.shape { z-index: 2; display: flex; align-items: center; justify-content: center; text-align: center; padding: 6px 10px; line-height: 1.25; font-weight: 700; }
+  .node.shape.rect { border: 1.5px solid #000000; border-radius: 10px; }
+  .node.shape.diamond { border: 2px solid #000000; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+  .node.shape.diamond span { max-width: 60%; }
+  .node.shape.hexagon { border: 1.5px solid #000000; clip-path: polygon(12% 0%, 88% 0%, 100% 50%, 88% 100%, 12% 100%, 0% 50%); }
+  .node.shape.note { border: 1.5px solid #000000; text-align: left; align-items: flex-start; justify-content: flex-start; font-weight: 500; padding: 10px 12px; }
+</style>
+
+<div class="legend">
+  <div><b>Britannia RFID: Unified Flow (All Portals)</b> <span class="hint"></span></div>
+  <div class="controls">
+    <button class="square" id="zoomOut" title="Zoom out">−</button>
+    <span class="pct" id="zoomPct">100%</span>
+    <button class="square" id="zoomIn" title="Zoom in">+</button>
+    <button id="zoomFit" title="Fit to screen"><span>Fit</span></button>
+  </div>
+</div>
+<div class="viewport" id="viewport">
+  <div class="sizer" id="sizer">
+    <div class="canvas" id="canvas">
+      <svg class="connectors" viewBox="0 0 4320 2415">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#000000"/>
+          </marker>
+        </defs>
+        <path d="M280 540 L320 540 L320 220 L380 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1200 2090 L1260 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="1196.75" y="2081" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="1230" y="2093" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Replenish</text>
+<path d="M280 540 L380 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M280 540 L320 540 L320 860 L380 860" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M600 220 L660 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M770 275 L770 315" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="758" y="286" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="770" y="298" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M880 220 L940 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="896.25" y="211" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="910" y="223" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M1120 220 L1180 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M600 540 L660 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M770 595 L770 635" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="758" y="606" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="770" y="618" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M880 540 L940 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="896.25" y="531" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="910" y="543" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M1120 540 L1180 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1480 540 L1540 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1760 540 L1900 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="1787" y="531" width="86" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="1830" y="543" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No - new SKU</text>
+<path d="M1650 485 L1650 445" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="1636.25" y="456" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="1650" y="468" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M600 860 L660 860" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M770 915 L770 955" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="758" y="926" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="770" y="938" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M880 860 L940 860" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="896.25" y="851" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="910" y="863" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M1500 220 L2150 220 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M2120 540 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M1760 415 L2150 415 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M1120 860 L2150 860 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M2310 585 L2310 1085 L2310 1175 L200 1175 L80 1360" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M320 1395 L380 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M620 1395 L680 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M790 1340 L790 1270" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="776.25" y="1296" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="790" y="1308" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M900 1395 L960 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="918" y="1386" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="930" y="1398" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M1220 1395 L1280 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1500 1395 L1560 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1860 1395 L1920 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M2160 1395 L2220 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M2460 1395 L2520 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M2760 1395 L2820 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M2930 1450 L2930 1530" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="2918" y="1481" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="2930" y="1493" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M2930 1590 L2930 1650" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M2930 1710 L2800 1710 L2800 1700 L2340 1700 L2340 1430" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<rect x="2510.75" y="1691" width="118.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="2570" y="1703" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">ships replacement</text>
+<path d="M3040 1395 L3100 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="3056.25" y="1386" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="3070" y="1398" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M3340 1395 L3400 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M3640 1395 L3700 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M920 1235 L1000 1265 L1000 1330 L3820 1330 L3820 1360" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M3940 1395 L4000 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M4120 1440 L4120 1780 L4120 1870 L200 1870 L80 2055" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M320 2090 L380 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M620 2090 L980 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1090 2145 L1090 2185" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="1056.75" y="2156" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="1090" y="2168" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Write-off</text>
+<path d="M1090 2245 L1090 2275" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M1380 2055 L1380 2000 L790 2000 L790 1450" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+
+      </svg>
+      <div class="node sectionbg" style="left:20px;top:20px;width:2460px;height:1025px;background:#f5f5f5;"></div>
+<div class="node shape hexagon" style="left:60px;top:495px;width:220px;height:90px;background:#000000;color:#ffffff;font-size:13px;"><span>Super Admin (Platform)</span></div>
+<div class="node shape rect" style="left:380px;top:190px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse registers</span></div>
+<div class="node shape diamond" style="left:660px;top:165px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Super Admin approves warehouse?</span></div>
+<div class="node shape rect" style="left:940px;top:190px;width:180px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse active</span></div>
+<div class="node shape rect" style="left:1180px;top:175px;width:320px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse configures settings, links approved vendors &amp; stores, accesses the shared Master Catalogue</span></div>
+<div class="node shape rect" style="left:660px;top:315px;width:220px;height:50px;background:#595959;color:#ffffff;font-size:12px;"><span>Warehouse not onboarded</span></div>
+<div class="node shape rect" style="left:380px;top:510px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor registers (compliance docs &amp; contracts)</span></div>
+<div class="node shape diamond" style="left:660px;top:485px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Super Admin approves vendor?</span></div>
+<div class="node shape rect" style="left:940px;top:510px;width:180px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor active</span></div>
+<div class="node shape rect" style="left:1180px;top:505px;width:300px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor uploads product catalogue (raw material &amp; finished goods)</span></div>
+<div class="node shape diamond" style="left:1540px;top:485px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Matches an existing Master SKU?</span></div>
+<div class="node shape rect" style="left:1900px;top:510px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>New Master SKU created</span></div>
+<div class="node shape rect" style="left:660px;top:635px;width:220px;height:50px;background:#595959;color:#ffffff;font-size:12px;"><span>Vendor not onboarded</span></div>
+<div class="node shape rect" style="left:1540px;top:385px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Grouped into existing Master SKU</span></div>
+<div class="node shape rect" style="left:380px;top:830px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Store registers</span></div>
+<div class="node shape diamond" style="left:660px;top:805px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Super Admin approves store?</span></div>
+<div class="node shape rect" style="left:940px;top:830px;width:180px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Store active</span></div>
+<div class="node shape rect" style="left:660px;top:955px;width:220px;height:50px;background:#595959;color:#ffffff;font-size:12px;"><span>Store not onboarded</span></div>
+<div class="node shape rect" style="left:2180px;top:495px;width:260px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Catalogue published (read-only to Warehouse &amp; Store)</span></div>
+<div class="node sectionbg" style="left:20px;top:1145px;width:4260px;height:595px;background:#f5f5f5;"></div>
+<div class="node sectionbg" style="left:20px;top:1840px;width:2180px;height:535px;background:#f5f5f5;"></div>
+<div class="node shape rect" style="left:80px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store raises purchase request (from the Master Catalogue)</span></div>
+<div class="node shape rect" style="left:660px;top:1200px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock directly</span></div>
+<div class="node shape rect" style="left:960px;top:1360px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse RFQs every linked vendor for the SKU</span></div>
+<div class="node shape rect" style="left:2800px;top:1530px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Rejected, returned with photo evidence</span></div>
+<div class="node shape rect" style="left:3100px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Accepted into warehouse stock</span></div>
+<div class="node shape rect" style="left:80px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store receives warehouse-sent goods</span></div>
+<div class="node title" style="left:50px;top:30px;width:700px;height:26px;color:#000000;font-size:16px;">Onboarding &amp; Governance (Super Admin gated)</div>
+<div class="node title" style="left:50px;top:1155px;width:500px;height:26px;color:#000000;font-size:16px;">Procurement &amp; Fulfilment</div>
+<div class="node title" style="left:50px;top:1850px;width:400px;height:26px;color:#000000;font-size:16px;">Store Usage &amp; Returns</div>
+<div class="node shape rect" style="left:380px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives purchase request</span></div>
+<div class="node shape diamond" style="left:680px;top:1340px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Stock already available?</span></div>
+<div class="node shape rect" style="left:1280px;top:1360px;width:220px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor submits quotation</span></div>
+<div class="node shape rect" style="left:1560px;top:1345px;width:300px;height:100px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse compares quotes, approves PO (locked; freight cost agreed at quote)</span></div>
+<div class="node shape rect" style="left:1920px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor manufactures &amp; packages the goods</span></div>
+<div class="node shape rect" style="left:2220px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor ships goods, logs ASN + submits invoice</span></div>
+<div class="node shape rect" style="left:2520px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives delivery, logs the ASN</span></div>
+<div class="node shape diamond" style="left:2820px;top:1340px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods pass inspection?</span></div>
+<div class="node shape rect" style="left:2800px;top:1650px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Replacement arranged</span></div>
+<div class="node shape rect" style="left:3400px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock to store</span></div>
+<div class="node shape rect" style="left:3700px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store confirms delivery on receipt</span></div>
+<div class="node shape rect" style="left:4000px;top:1350px;width:240px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor got paid - payment only after warehouse accepts delivery</span></div>
+<div class="node shape rect" style="left:380px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods are inspected</span></div>
+<div class="node shape diamond" style="left:980px;top:2035px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Replenish or write-off?</span></div>
+<div class="node shape rect" style="left:1260px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store chooses : replenish</span></div>
+<div class="node shape rect" style="left:980px;top:2275px;width:220px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>End: Loss tracked, never silent</span></div>
+<div class="node shape note" style="left:1900px;top:2035px;width:260px;height:110px;background:#f0f0f0;color:#000000;font-size:12px;">Store never handles a vendor invoice - one relationship to manage : every history logs in ASN</div>
+<div class="node shape rect" style="left:980px;top:2185px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse writes off the loss</span></div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+var CANVAS_W = 4320, CANVAS_H = 2415;
+
+(function () {
+  var viewport = document.getElementById('viewport');
+  var sizer = document.getElementById('sizer');
+  var canvas = document.getElementById('canvas');
+  var zoomPct = document.getElementById('zoomPct');
+  var MIN_SCALE = 0.05, MAX_SCALE = 3;
+  var scale = 1;
+
+  function setSize() {
+    sizer.style.width = (CANVAS_W * scale) + 'px';
+    sizer.style.height = (CANVAS_H * scale) + 'px';
+    canvas.style.transform = 'scale(' + scale + ')';
+    zoomPct.textContent = Math.round(scale * 100) + '%';
+  }
+
+  function fitToScreen() {
+    var vw = viewport.clientWidth, vh = viewport.clientHeight;
+    var s = Math.min(vw / CANVAS_W, vh / CANVAS_H) * 0.96;
+    scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, s));
+    setSize();
+    viewport.scrollLeft = 0;
+    viewport.scrollTop = 0;
+  }
+
+  // Zoom while keeping the content point under the cursor fixed on screen - the scroll
+  // position is adjusted by the same ratio the scale changed by.
+  function zoomAt(cx, cy, factor) {
+    var newScale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * factor));
+    if (newScale === scale) return;
+    var contentX = (viewport.scrollLeft + cx) / scale;
+    var contentY = (viewport.scrollTop + cy) / scale;
+    scale = newScale;
+    setSize();
+    viewport.scrollLeft = contentX * scale - cx;
+    viewport.scrollTop = contentY * scale - cy;
+  }
+
+  // Plain wheel/trackpad scroll = normal native pan (both axes - shift+wheel or trackpad
+  // deltaX already scroll horizontally for free via overflow:auto, no JS needed for that).
+  // Zoom is a deliberate, modifier-gated action (Ctrl/Cmd+scroll, and Mac trackpad pinch -
+  // which the browser also reports as a ctrlKey wheel event) so scrolling never fights zoom.
+  viewport.addEventListener('wheel', function (e) {
+    if (!(e.ctrlKey || e.metaKey)) return; // let the browser scroll natively
+    e.preventDefault();
+    var rect = viewport.getBoundingClientRect();
+    var cx = e.clientX - rect.left, cy = e.clientY - rect.top;
+    var factor = Math.pow(1.0015, -e.deltaY);
+    zoomAt(cx, cy, factor);
+  }, { passive: false });
+
+  // Click-drag panning, on top of the native scrollbars (both work together).
+  var dragging = false, lastX = 0, lastY = 0;
+  viewport.addEventListener('mousedown', function (e) {
+    if (e.target.closest('button')) return;
+    dragging = true;
+    lastX = e.clientX; lastY = e.clientY;
+    viewport.classList.add('grabbing');
+  });
+  window.addEventListener('mousemove', function (e) {
+    if (!dragging) return;
+    viewport.scrollLeft -= e.clientX - lastX;
+    viewport.scrollTop -= e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+  });
+  window.addEventListener('mouseup', function () {
+    dragging = false;
+    viewport.classList.remove('grabbing');
+  });
+
+  document.getElementById('zoomIn').addEventListener('click', function () {
+    zoomAt(viewport.clientWidth / 2, viewport.clientHeight / 2, 1.25);
+  });
+  document.getElementById('zoomOut').addEventListener('click', function () {
+    zoomAt(viewport.clientWidth / 2, viewport.clientHeight / 2, 0.8);
+  });
+  document.getElementById('zoomFit').addEventListener('click', fitToScreen);
+
+  // Touch: one-finger drag-to-pan already works for free (native overflow:auto scrolling).
+  // Two-finger pinch is layered on top for zoom, same "keep the pinch midpoint fixed" math
+  // as the wheel handler above.
+  var pinch = null;
+  viewport.addEventListener('touchstart', function (e) {
+    if (e.touches.length === 2) {
+      const dx = e.touches[0].clientX - e.touches[1].clientX;
+      const dy = e.touches[0].clientY - e.touches[1].clientY;
+      pinch = { dist: Math.hypot(dx, dy) };
+    } else {
+      pinch = null;
+    }
+  }, { passive: true });
+  viewport.addEventListener('touchmove', function (e) {
+    if (!pinch || e.touches.length !== 2) return;
+    e.preventDefault();
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.hypot(dx, dy);
+    const rect = viewport.getBoundingClientRect();
+    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+    zoomAt(cx, cy, dist / pinch.dist);
+    pinch.dist = dist;
+  }, { passive: false });
+  viewport.addEventListener('touchend', function (e) {
+    if (e.touches.length < 2) pinch = null;
+  });
+
+  window.addEventListener('resize', fitToScreen);
+  fitToScreen();
+})();
+
+</script>
