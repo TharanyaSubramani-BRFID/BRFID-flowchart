@@ -62,7 +62,7 @@
 </style>
 
 <div class="legend">
-  <div><b>Britannia RFID: Unified Flow (All Portals)</b> <span class="hint"></span></div>
+  <div><b>Britannia RFID: Unified Flow (All Portals)</b> <span class="hint">· Scroll or drag to pan · Ctrl/Cmd + Scroll to zoom</span></div>
   <div class="controls">
     <button class="square" id="zoomOut" title="Zoom out">−</button>
     <span class="pct" id="zoomPct">100%</span>
@@ -204,7 +204,7 @@
 <div class="node shape rect" style="left:7180px;top:235px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods are inspected</span></div>
 <div class="node shape diamond" style="left:7780px;top:215px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Replenish or write-off?</span></div>
 <div class="node shape rect" style="left:8060px;top:235px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store chooses : replenish</span></div>
-<div class="node shape rect" style="left:7780px;top:455px;width:220px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>End: Loss recorded</span></div>
+<div class="node shape rect" style="left:7780px;top:455px;width:220px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>End: Loss tracked, never silent</span></div>
 <div class="node shape note" style="left:7460px;top:90px;width:260px;height:110px;background:#f0f0f0;color:#000000;font-size:12px;">Store never handles a vendor invoice - one relationship to manage : every history logs in ASN</div>
 <div class="node shape rect" style="left:7780px;top:365px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse writes off the loss</span></div>
 
@@ -338,7 +338,12 @@ var CANVAS_W = 8380, CANVAS_H = 1085;
     if (e.touches.length < 2) pinch = null;
   });
 
-  window.addEventListener('resize', fitToScreen);
+  // Desktop's default view (65%) should stay put once the page has opened -
+  // only mobile re-fits on resize/orientation-change, since a fixed number
+  // can't work across every phone/tablet size the way fit-to-screen does.
+  window.addEventListener('resize', function () {
+    if (viewport.clientWidth < 640) fitToScreen();
+  });
   setDefaultView();
 })();
 
