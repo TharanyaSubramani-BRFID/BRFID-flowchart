@@ -12,7 +12,6 @@
     justify-content: space-between; gap: 16px; flex-wrap: wrap;
   }
   .legend b { color: #000; }
-  .legend .hint { color: #777; font-size: 12px; }
   .controls { display: flex; align-items: center; gap: 6px; }
   .controls button {
     height: 30px; border: 1.5px solid #000; background: #fff; color: #000;
@@ -28,7 +27,6 @@
 
   @media (max-width: 640px) {
     .legend { padding: 8px 12px; gap: 8px; }
-    .legend .hint { display: none; } /* the gesture hint doesn't fit a phone width; touch panning/pinch-zoom needs no instructions */
     .legend b { font-size: 13px; }
     .controls button { height: 34px; font-size: 15px; } /* slightly larger hit targets for touch */
     .controls .pct { min-width: 38px; font-size: 11px; }
@@ -62,7 +60,7 @@
 </style>
 
 <div class="legend">
-  <div><b>Britannia RFID: Unified Flow (All Portals)</b> <span class="hint">· Scroll or drag to pan · Ctrl/Cmd + Scroll to zoom</span></div>
+  <div><b>Britannia RFID: Unified Flow (All Portals)</b></div>
   <div class="controls">
     <button class="square" id="zoomOut" title="Zoom out">−</button>
     <span class="pct" id="zoomPct">100%</span>
@@ -249,7 +247,7 @@ var CANVAS_W = 8380, CANVAS_H = 1085;
     if (viewport.clientWidth < 640) {
       fitToScreen();
     } else {
-      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, 0.65));
+      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, 0.45));
       setSize();
       viewport.scrollLeft = 0;
       viewport.scrollTop = 0;
