@@ -46,10 +46,10 @@
   .viewport.grabbing { cursor: grabbing; }
   .sizer { position: relative; } /* width/height set by JS = native canvas size * scale */
   .canvas {
-    position: absolute; left: 0; top: 0; width: 4320px; height: 2415px;
+    position: absolute; left: 0; top: 0; width: 8380px; height: 1085px;
     background: #ffffff; box-shadow: 0 0 0 1px #e2e2e2; transform-origin: 0 0;
   }
-  svg.connectors { position: absolute; left: 0; top: 0; width: 4320px; height: 2415px; z-index: 1; pointer-events: none; }
+  svg.connectors { position: absolute; left: 0; top: 0; width: 8380px; height: 1085px; z-index: 1; pointer-events: none; }
   .node { position: absolute; }
   .node.sectionbg { border: 1px dashed #000000; border-radius: 6px; z-index: 0; }
   .node.title { display: flex; align-items: center; font-weight: 700; z-index: 2; }
@@ -73,16 +73,16 @@
 <div class="viewport" id="viewport">
   <div class="sizer" id="sizer">
     <div class="canvas" id="canvas">
-      <svg class="connectors" viewBox="0 0 4320 2415">
+      <svg class="connectors" viewBox="0 0 8380 1085">
         <defs>
           <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="#000000"/>
           </marker>
         </defs>
         <path d="M280 540 L320 540 L320 220 L380 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M1200 2090 L1260 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="1196.75" y="2081" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="1230" y="2093" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Replenish</text>
+<path d="M8000 270 L8060 270" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="7996.75" y="261" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="8030" y="273" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Replenish</text>
 <path d="M280 540 L380 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
 <path d="M280 540 L320 540 L320 860 L380 860" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
 <path d="M600 220 L660 220" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
@@ -119,43 +119,43 @@
 <path d="M2120 540 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
 <path d="M1760 415 L2150 415 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
 <path d="M1120 860 L2150 860 L2150 540 L2180 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
-<path d="M2310 585 L2310 1085 L2310 1175 L200 1175 L80 1360" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
-<path d="M320 1395 L380 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M620 1395 L680 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M790 1340 L790 1270" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="776.25" y="1296" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="790" y="1308" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
-<path d="M900 1395 L960 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="918" y="1386" width="24" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="930" y="1398" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
-<path d="M1220 1395 L1280 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M1500 1395 L1560 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M1860 1395 L1920 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M2160 1395 L2220 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M2460 1395 L2520 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M2760 1395 L2820 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M2930 1450 L2930 1530" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="2918" y="1481" width="24" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="2930" y="1493" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
-<path d="M2930 1590 L2930 1650" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M2930 1710 L2800 1710 L2800 1700 L2340 1700 L2340 1430" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
-<rect x="2510.75" y="1691" width="118.5" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="2570" y="1703" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">ships replacement</text>
-<path d="M3040 1395 L3100 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="3056.25" y="1386" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="3070" y="1398" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
-<path d="M3340 1395 L3400 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M3640 1395 L3700 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M920 1235 L1000 1265 L1000 1330 L3820 1330 L3820 1360" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M3940 1395 L4000 1395" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M4120 1440 L4120 1780 L4120 1870 L200 1870 L80 2055" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
-<path d="M320 2090 L380 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M620 2090 L980 2090" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M1090 2145 L1090 2185" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<rect x="1056.75" y="2156" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
-<text x="1090" y="2168" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Write-off</text>
-<path d="M1090 2245 L1090 2275" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
-<path d="M1380 2055 L1380 2000 L790 2000 L790 1450" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M2440 540 L2580 540" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M2820 540 L2880 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M3120 540 L3180 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M3290 485 L3290 415" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="3276.25" y="441" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="3290" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M3400 540 L3460 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="3418" y="531" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="3430" y="543" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M3720 540 L3780 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M4000 540 L4060 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M4360 540 L4420 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M4660 540 L4720 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M4960 540 L5020 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M5260 540 L5320 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M5430 595 L5430 675" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="5418" y="626" width="24" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="5430" y="638" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">No</text>
+<path d="M5430 735 L5430 795" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M5430 855 L5300 855 L5300 845 L4840 845 L4840 575" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<rect x="5010.75" y="836" width="118.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="5070" y="848" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">ships replacement</text>
+<path d="M5540 540 L5600 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="5556.25" y="531" width="27.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="5570" y="543" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Yes</text>
+<path d="M5840 540 L5900 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M6140 540 L6200 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M3420 380 L3500 410 L3500 475 L6320 475 L6320 505" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M6440 540 L6500 540" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M6620 495 L6620 270 L6880 270" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
+<path d="M7120 270 L7180 270" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M7420 270 L7780 270" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M7890 325 L7890 365" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<rect x="7856.75" y="336" width="66.5" height="16" fill="#ffffff" opacity="0.9"/>
+<text x="7890" y="348" text-anchor="middle" font-size="11" font-weight="600" fill="#000000" font-family="Arial, sans-serif">Write-off</text>
+<path d="M7890 425 L7890 455" fill="none" stroke="#000000" stroke-width="1.6" marker-end="url(#arrow)" />
+<path d="M8180 305 L8180 1000 L3290 1000 L3290 595" fill="none" stroke="#000000" stroke-width="1.6" stroke-dasharray="6,5" marker-end="url(#arrow)" />
 
       </svg>
       <div class="node sectionbg" style="left:20px;top:20px;width:2460px;height:1025px;background:#f5f5f5;"></div>
@@ -178,35 +178,35 @@
 <div class="node shape rect" style="left:940px;top:830px;width:180px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Store active</span></div>
 <div class="node shape rect" style="left:660px;top:955px;width:220px;height:50px;background:#595959;color:#ffffff;font-size:12px;"><span>Store not onboarded</span></div>
 <div class="node shape rect" style="left:2180px;top:495px;width:260px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Catalogue published (read-only to Warehouse &amp; Store)</span></div>
-<div class="node sectionbg" style="left:20px;top:1145px;width:4260px;height:595px;background:#f5f5f5;"></div>
-<div class="node sectionbg" style="left:20px;top:1840px;width:2180px;height:535px;background:#f5f5f5;"></div>
-<div class="node shape rect" style="left:80px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store raises purchase request (from the Master Catalogue)</span></div>
-<div class="node shape rect" style="left:660px;top:1200px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock directly</span></div>
-<div class="node shape rect" style="left:960px;top:1360px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse RFQs every linked vendor for the SKU</span></div>
-<div class="node shape rect" style="left:2800px;top:1530px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Rejected, returned with photo evidence</span></div>
-<div class="node shape rect" style="left:3100px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Accepted into warehouse stock</span></div>
-<div class="node shape rect" style="left:80px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store receives warehouse-sent goods</span></div>
+<div class="node sectionbg" style="left:2520px;top:20px;width:4260px;height:1025px;background:#f5f5f5;"></div>
+<div class="node sectionbg" style="left:6820px;top:20px;width:1520px;height:1025px;background:#f5f5f5;"></div>
+<div class="node shape rect" style="left:2580px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store raises purchase request (from the Master Catalogue)</span></div>
+<div class="node shape rect" style="left:3160px;top:345px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock directly</span></div>
+<div class="node shape rect" style="left:3460px;top:505px;width:260px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse RFQs every linked vendor for the SKU</span></div>
+<div class="node shape rect" style="left:5300px;top:675px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Rejected, returned with photo evidence</span></div>
+<div class="node shape rect" style="left:5600px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Accepted into warehouse stock</span></div>
+<div class="node shape rect" style="left:6880px;top:235px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store receives warehouse-sent goods</span></div>
 <div class="node title" style="left:50px;top:30px;width:700px;height:26px;color:#000000;font-size:16px;">Onboarding &amp; Governance (Super Admin gated)</div>
-<div class="node title" style="left:50px;top:1155px;width:500px;height:26px;color:#000000;font-size:16px;">Procurement &amp; Fulfilment</div>
-<div class="node title" style="left:50px;top:1850px;width:400px;height:26px;color:#000000;font-size:16px;">Store Usage &amp; Returns</div>
-<div class="node shape rect" style="left:380px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives purchase request</span></div>
-<div class="node shape diamond" style="left:680px;top:1340px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Stock already available?</span></div>
-<div class="node shape rect" style="left:1280px;top:1360px;width:220px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor submits quotation</span></div>
-<div class="node shape rect" style="left:1560px;top:1345px;width:300px;height:100px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse compares quotes, approves PO (locked; freight cost agreed at quote)</span></div>
-<div class="node shape rect" style="left:1920px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor manufactures &amp; packages the goods</span></div>
-<div class="node shape rect" style="left:2220px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor ships goods, logs ASN + submits invoice</span></div>
-<div class="node shape rect" style="left:2520px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives delivery, logs the ASN</span></div>
-<div class="node shape diamond" style="left:2820px;top:1340px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods pass inspection?</span></div>
-<div class="node shape rect" style="left:2800px;top:1650px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Replacement arranged</span></div>
-<div class="node shape rect" style="left:3400px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock to store</span></div>
-<div class="node shape rect" style="left:3700px;top:1360px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store confirms delivery on receipt</span></div>
-<div class="node shape rect" style="left:4000px;top:1350px;width:240px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor got paid - payment only after warehouse accepts delivery</span></div>
-<div class="node shape rect" style="left:380px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods are inspected</span></div>
-<div class="node shape diamond" style="left:980px;top:2035px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Replenish or write-off?</span></div>
-<div class="node shape rect" style="left:1260px;top:2055px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store chooses : replenish</span></div>
-<div class="node shape rect" style="left:980px;top:2275px;width:220px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>End: Loss tracked, never silent</span></div>
-<div class="node shape note" style="left:1900px;top:2035px;width:260px;height:110px;background:#f0f0f0;color:#000000;font-size:12px;">Store never handles a vendor invoice - one relationship to manage : every history logs in ASN</div>
-<div class="node shape rect" style="left:980px;top:2185px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse writes off the loss</span></div>
+<div class="node title" style="left:2550px;top:30px;width:500px;height:26px;color:#000000;font-size:16px;">Procurement &amp; Fulfilment</div>
+<div class="node title" style="left:6850px;top:30px;width:400px;height:26px;color:#000000;font-size:16px;">Store Usage &amp; Returns</div>
+<div class="node shape rect" style="left:2880px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives purchase request</span></div>
+<div class="node shape diamond" style="left:3180px;top:485px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Stock already available?</span></div>
+<div class="node shape rect" style="left:3780px;top:505px;width:220px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor submits quotation</span></div>
+<div class="node shape rect" style="left:4060px;top:490px;width:300px;height:100px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse compares quotes, approves PO (locked; freight cost agreed at quote)</span></div>
+<div class="node shape rect" style="left:4420px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor manufactures &amp; packages the goods</span></div>
+<div class="node shape rect" style="left:4720px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor ships goods, logs ASN + submits invoice</span></div>
+<div class="node shape rect" style="left:5020px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse receives delivery, logs the ASN</span></div>
+<div class="node shape diamond" style="left:5320px;top:485px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods pass inspection?</span></div>
+<div class="node shape rect" style="left:5300px;top:795px;width:260px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>Replacement arranged</span></div>
+<div class="node shape rect" style="left:5900px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse transfers stock to store</span></div>
+<div class="node shape rect" style="left:6200px;top:505px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store confirms delivery on receipt</span></div>
+<div class="node shape rect" style="left:6500px;top:495px;width:240px;height:90px;background:#ffffff;color:#000000;font-size:13px;"><span>Vendor got paid - payment only after warehouse accepts delivery</span></div>
+<div class="node shape rect" style="left:7180px;top:235px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Goods are inspected</span></div>
+<div class="node shape diamond" style="left:7780px;top:215px;width:220px;height:110px;background:#ffffff;color:#000000;font-size:13px;"><span>Replenish or write-off?</span></div>
+<div class="node shape rect" style="left:8060px;top:235px;width:240px;height:70px;background:#ffffff;color:#000000;font-size:13px;"><span>Store chooses : replenish</span></div>
+<div class="node shape rect" style="left:7780px;top:455px;width:220px;height:60px;background:#595959;color:#ffffff;font-size:12px;"><span>End: Loss recorded</span></div>
+<div class="node shape note" style="left:7460px;top:90px;width:260px;height:110px;background:#f0f0f0;color:#000000;font-size:12px;">Store never handles a vendor invoice - one relationship to manage : every history logs in ASN</div>
+<div class="node shape rect" style="left:7780px;top:365px;width:220px;height:60px;background:#ffffff;color:#000000;font-size:13px;"><span>Warehouse writes off the loss</span></div>
 
     </div>
   </div>
@@ -214,7 +214,7 @@
 
 <script>
 
-var CANVAS_W = 4320, CANVAS_H = 2415;
+var CANVAS_W = 8380, CANVAS_H = 1085;
 
 (function () {
   var viewport = document.getElementById('viewport');
@@ -238,6 +238,22 @@ var CANVAS_W = 4320, CANVAS_H = 2415;
     setSize();
     viewport.scrollLeft = 0;
     viewport.scrollTop = 0;
+  }
+
+  // Default view on open: a fixed 65% on desktop (so the diagram reads as
+  // full/intentional rather than shrunk to fit), but mobile screens vary too
+  // much in size for a fixed number to make sense there - fit-to-screen is
+  // the right per-device calculation on a phone/tablet. 640px matches the
+  // mobile breakpoint already used by the CSS above.
+  function setDefaultView() {
+    if (viewport.clientWidth < 640) {
+      fitToScreen();
+    } else {
+      scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, 0.65));
+      setSize();
+      viewport.scrollLeft = 0;
+      viewport.scrollTop = 0;
+    }
   }
 
   // Zoom while keeping the content point under the cursor fixed on screen - the scroll
@@ -323,7 +339,7 @@ var CANVAS_W = 4320, CANVAS_H = 2415;
   });
 
   window.addEventListener('resize', fitToScreen);
-  fitToScreen();
+  setDefaultView();
 })();
 
 </script>
